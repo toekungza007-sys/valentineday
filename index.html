@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day My Love ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;500&family=Pattaya&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-pink: #fff0f3;
+            --dark-pink: #c9184a;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Mitr', sans-serif;
+            background-color: var(--soft-pink);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- ส่วนที่ 1: หน้าจอใส่รหัสผ่าน (Passcode) --- */
+        #passcode-screen {
+            height: 100vh; width: 100%;
+            position: fixed; top: 0; left: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background-color: var(--soft-pink);
+            z-index: 1001;
+            transition: 0.5s;
+        }
+
+        .pass-box {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.2);
+            text-align: center; width: 85%; max-width: 320px;
+        }
+
+        .pass-box h3 { color: var(--dark-pink); margin-bottom: 15px; }
+        
+        input[type="text"] {
+            width: 100%; padding: 12px; margin-bottom: 20px;
+            border: 2px solid #ffd1dc; border-radius: 10px;
+            text-align: center; font-size: 1.2rem; outline: none;
+            box-sizing: border-box; font-family: 'Mitr', sans-serif;
+        }
+
+        .btn-pass {
+            background: var(--primary-pink); color: white; border: none;
+            padding: 12px 30px; border-radius: 50px; cursor: pointer;
+            font-size: 1rem; width: 100%; transition: 0.3s;
+        }
+
+        /* --- ส่วนที่ 2: หน้า Cover (หัวใจ) --- */
+        #cover {
+            height: 100vh; width: 100%;
+            position: fixed; top: 0; left: 0;
+            display: none; /* จะแสดงหลังจากใส่รหัสถูก */
+            flex-direction: column;
+            justify-content: center; align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://cdn.discordapp.com/attachments/1431454000372383848/1471999970172207124/1.png?ex=6990fa4d&is=698fa8cd&hm=67142689f1f09dce2f39e4e2d704c9c5c3ca334e1f03e577accfb2721da2e753&') no-repeat center/cover;
+            color: white; z-index: 999;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            text-align: center;
+        }
+
+        .heart-btn {
+            font-size: 100px; cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- ส่วนที่ 3: เนื้อหาหลัก --- */
+        .main-content { padding: 20px; max-width: 500px; margin: 0 auto; display: none; }
+        
+        header { text-align: center; padding: 50px 0; }
+        h1 { font-family: 'Pattaya', sans-serif; color: var(--dark-pink); font-size: 2.8rem; margin: 0; }
+
+        .timer-box {
+            background: white; padding: 25px; border-radius: 20px;
+            text-align: center; margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.1);
+        }
+
+        .timer-display { font-size: 1.1rem; color: var(--dark-pink); font-weight: 500; margin-top: 10px; }
+
+        .love-generator {
+            background: white; padding: 25px; border-radius: 20px;
+            text-align: center; margin-bottom: 40px;
+            border: 2px dashed var(--primary-pink);
+        }
+
+        .btn-random, .btn-voucher {
+            background: var(--primary-pink); color: white; border: none;
+            padding: 10px 20px; border-radius: 50px; cursor: pointer;
+            font-family: 'Mitr', sans-serif; transition: 0.3s;
+        }
+
+        .btn-voucher { margin-top: 10px; font-size: 0.8rem; width: 100%; }
+        .btn-voucher:hover { background: var(--dark-pink); transform: scale(1.02); }
+
+        .memory-card {
+            background: white; padding: 15px; border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            margin-bottom: 40px; transform: rotate(-1.5deg);
+        }
+
+        .memory-card img { width: 100%; border-radius: 10px; display: block; margin-bottom: 10px; }
+        .memory-text { text-align: center; color: #555; font-style: italic; font-size: 0.9rem; line-height: 1.6; }
+
+        /* --- ส่วนที่ 4: คูปอง --- */
+        .voucher-section { text-align: center; margin-top: 50px; padding-bottom: 80px; }
+        .voucher {
+            background: white; border: 2px dashed var(--primary-pink);
+            border-radius: 15px; padding: 20px; margin-bottom: 20px;
+            position: relative; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.1);
+            text-align: left;
+        }
+        .voucher-title { color: var(--dark-pink); font-weight: 600; font-size: 1.15rem; margin-bottom: 5px; }
+        .voucher-sub { font-size: 0.85rem; color: #777; margin-bottom: 10px; line-height: 1.4; }
+
+        .falling-item {
+            position: fixed; top: -5vh; pointer-events: none;
+            z-index: 1000; animation: fall-sway linear forwards;
+        }
+
+        @keyframes fall-sway {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="passcode-screen">
+        <div class="pass-box">
+            <h3>🔑 Tier</h3>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">
+                ใส่รหัสผ่านเพื่อเข้าสู่หัวใจพี่โต๋<br>
+                คำตอบ : วันเดือนปีเกิดหนู (0x/0x/25xx)
+            </p>
+            <input type="text" id="passInput" placeholder="ตัวอย่าง 03/08/2549">
+            <button class="btn-pass" onclick="checkPasscode()">ตกลง ❤️</button>
+        </div>
+    </div>
+
+    <div id="cover">
+        <div class="heart-btn" onclick="startSurprise()">❤️</div>
+        <h2 style="font-family: 'Pattaya', sans-serif; font-size: 2rem;">My Baby Tier</h2>
+        <p>กดที่หัวใจเพื่อเปิดของขวัญนะ</p>
+    </div>
+
+    <div id="main-content" class="main-content">
+        <header>
+            <h1>Happy Valentine's Day!</h1>
+            <p style="color: var(--dark-pink); font-weight: 500;">น้องเทียร์ของพี่โต๋</p>
+        </header>
+
+        <div class="timer-box">
+            <h3 style="color: var(--dark-pink); margin: 0; font-size: 1rem;">เราเดินข้างกันมาตั้งแต่วันที่ 9 พ.ย. 2568</h3>
+            <div id="timer" class="timer-display">กำลังคำนวณเวลา...</div>
+        </div>
+
+        <div class="love-generator">
+            <p style="margin-top: 0; font-weight: 500;">วันนี้พี่โต๋อยากบอกอะไรนะ? ✨</p>
+            <div id="message-display" style="min-height: 50px; display: flex; align-items: center; justify-content: center; margin: 15px 0; font-style: italic; color: #555;">ลองกดสิ...</div>
+            <button class="btn-random" onclick="generateLoveMessage()">กดรับคำหวาน ❤️</button>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://media.discordapp.net/attachments/1431454000372383848/1471997007932690462/temp_image_030B33E4-322B-494B-AA55-173061334B16.webp?ex=6990f78b&is=698fa60b&hm=b99ee118519d87403ff5791b31146de669293072473c655e337b80bebbddc8d4&=&format=webp">
+            <div class="memory-text">"เด็กดือ คนน่ารักของพี่ ขอโทษทุกๆอย่างที่ทำให้เสียใจ ขอโทษที่ติดเกมเเต่อยากจะบอกว่ารักหนูมากที่สุดเลย"</div>
+        </div>
+
+        <h3 style="text-align: center; color: var(--dark-pink); font-family: 'Pattaya', sans-serif; font-size: 1.8rem;">✨ Best Memories ✨</h3>
+
+        <div class="memory-card">
+            <img src="https://cdn.discordapp.com/attachments/1431454000372383848/1471997109346767102/IMG_9576.jpg?ex=6990f7a3&is=698fa623&hm=80a049e798781471997109346767102">
+            <img src="https://media.discordapp.net/attachments/1431454000372383848/1471997108700582028/IMG_9583.jpg?ex=6990f7a3&is=698fa623&hm=9fa50cd16738e4376d9892fe331c7dc38648b29e6112fbb196d699c194a35aa5&=&format=webp">
+            <div class="memory-text"><strong>หนังเรื่องเเรก</strong><br>Zootopia</div>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://cdn.discordapp.com/attachments/1431454000372383848/1471996690323210351/temp_image_14806EC2-D8F8-4EC0-975F-1498711E7EF2.webp?ex=6990f73f&is=698fa5bf&hm=1a7693c04b44a92bdaf2be349f93d0a2e774a0f589bb8c4680de7c7cec7dcc42&">
+            <div class="memory-text"><strong>เเคมป์ด้วยกันครั้งเเรก</strong><br>ตอนนั้นพี่ให้ดอกไม้เป็นครั้งเเรก</div>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://cdn.discordapp.com/attachments/1431454000372383848/1471997441686634597/IMG_9479.jpg?ex=6990f7f2&is=698fa672&hm=e28639ae5c89214f5f97088dc65783638be4e87c5a2a28e2cf29657293c9dfae&">
+            <div class="memory-text"><strong>ดื่มด้วยกันครั้งเเรก</strong><br>วันนั้นมีเด็กเมาด้วยเเหละ น่ารักที่สุด</div>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://cdn.discordapp.com/attachments/1431454000372383848/1471997106897289227/IMG_9581.jpg?ex=6990f7a2&is=698fa622&hm=dc2eb9f75d3f7f9f41525be8da79cc42506f530e416646b8b30862c5831900b3&=&format=webp">
+            <div class="memory-text"><strong>ขอบคุณที่อยู่ข้างๆ กัน</strong><br>รักนะคับ</div>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://cdn.discordapp.com/attachments/1431454000372383848/1471996689723425032/IMG_1010.jpg?ex=6990f73f&is=698fa5bf&hm=f495b4ecaffda515bec90cf3d64e2306161f1f9197e3fe817f5006166c3c2e9d&">
+            <div class="memory-text"><strong>ขอบคุณในทุกๆอย่างไม่ว่าจะเรื่องอะไรก็ตาม</strong><br>ขอบคุณมากๆ ไม่ว่าจะเรื่องเรียนหรือในทุกอย่างที่ผ่านมารักกมากจริงๆนะ</div>
+        </div>
+
+        <div class="voucher-section">
+            <h3 style="color: var(--dark-pink); font-family: 'Pattaya', sans-serif; font-size: 1.8rem;">🎟️ คูปองคนน่ารักที่สุดในใจ</h3>
+            
+            <div class="voucher">
+                <div class="voucher-title">คูปองรักหนูตลอดไป (ไม่จำกัด) 🤫</div>
+                <div class="voucher-sub">เงื่อนไข: ไม่ต้องกดก็รักคับ อิอื</div>
+                <button class="btn-voucher" onclick="useVoucher('น้องเทียร์ได้ใช้ไปตั้งนานเเล้ว')">กดเพื่อใช้คูปอง</button>
+            </div>
+
+            <div class="voucher">
+                <div class="voucher-title">คูปองตามใจ 1 วันเต็มๆ 👑</div>
+                <div class="voucher-sub">เงื่อนไข: พี่โต๋ห้ามขัดใจทุกกรณี!</div>
+                <button class="btn-voucher" onclick="useVoucher('ตามใจน้องเทียร์ 1 วันเต็มๆ')">กดเพื่อใช้คูปอง</button>
+            </div>
+
+            <div class="voucher">
+                <div class="voucher-title">คูปองห้ามโกรธน้องเทียร์ 5 นาที 👑</div>
+                <div class="voucher-sub">เงื่อนไข: ใช้ตอนพี่ทำผิดเล็กน้อยเพื่อระงับเหตุฉุกเฉิน</div>
+                <button class="btn-voucher" onclick="useVoucher('ระงับเหตุด่วนนนนนนน!!')">กดเพื่อใช้คูปอง</button>
+            </div>
+
+             <div class="voucher">
+                <div class="voucher-title">คูปองกอด (ไม่จำกัด) 🤗</div>
+                <div class="voucher-sub">เงื่อนไข: ใช้ได้ตลอดเวลา </div>
+                <button class="btn-voucher" onclick="useVoucher('มากอดมาเบบี๋')">กดเพื่อใช้คูปอง</button>
+            </div>
+
+            <div style="margin-top: 30px; font-size: 0.9rem; color: var(--dark-pink);">
+                <p>❤️ พี่จะอยู่ข้างหนูแบบนี้ไปนานๆ นะคะ ❤️</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // วันที่เริ่มคบ (9 พ.ย. 2568)
+        const startDate = new Date(2025, 10, 9, 12, 0, 0);
+
+        // ฟังก์ชันเช็ครหัสผ่าน
+        function checkPasscode() {
+            const pass = document.getElementById('passInput').value;
+            // รหัสผ่านคือ 03/08/2549
+            if (pass === "03/08/2549") {
+                document.getElementById('passcode-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('passcode-screen').style.display = 'none';
+                    document.getElementById('cover').style.display = 'flex';
+                }, 500);
+            } else {
+                alert("รหัสไม่ถูกต้องนะเบบี๋ ลองใหม่นะคะ! ❤️");
+            }
+        }
+
+        // ตัวนับเวลา
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / (1000 * 60)) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+            document.getElementById('timer').innerHTML = `${days} วัน ${hours} ชม. ${mins} นาที ${secs} วินาที`;
+        }
+
+        // สุ่มคำบอกรัก
+        function generateLoveMessage() {
+            const messages = [
+                "รักหนูที่สุดในโลก ❤️", 
+                "ดีใจที่มีหนูนะคนเก่ง 🌸", 
+                "น่ารักแบบนี้ตลอดไปนะ ✨", 
+                "ขอบคุณที่อยู่ด้วยกันนะ 💖", 
+                "รักนะไอเด็กดื้อ 🌹",
+                "รักมากกกเดะพาไปหาไดโนเสาร์ 🥰"
+            ];
+            const display = document.getElementById('message-display');
+            display.style.opacity = '0';
+            setTimeout(() => {
+                display.innerText = messages[Math.floor(Math.random() * messages.length)];
+                display.style.opacity = '1';
+            }, 300);
+        }
+
+        // เริ่มต้นการทำงานหลังจากกดหัวใจ
+        function startSurprise() {
+            document.getElementById('cover').style.transform = 'translateY(-100%)';
+            document.getElementById('main-content').style.display = 'block';
+            setInterval(createFalling, 300);
+            setInterval(updateTimer, 1000);
+        }
+
+        // เอฟเฟกต์ใจร่วง
+        function createFalling() {
+            const icons = ['❤️', '💖', '🌸', '✨', '🌹', '💕'];
+            const el = document.createElement('div');
+            el.className = 'falling-item';
+            el.innerText = icons[Math.floor(Math.random() * icons.length)];
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.fontSize = (Math.random() * 20 + 20) + "px";
+            el.style.animationDuration = (Math.random() * 3 + 4) + "s";
+            document.body.appendChild(el);
+            setTimeout(() => { el.remove(); }, 6000);
+        }
+
+        // ฟังก์ชันใช้คูปอง
+        function useVoucher(name) {
+            alert(`🎟️ คูปอง "${name}" ถูกใช้งานแล้ว!\n\nแคปหน้าจอนี้ส่งให้พี่โต๋ได้เลยนะคะคนดี เดี๋ยวพี่จัดให้! ❤️`);
+        }
+    </script>
+</body>
+</html>
